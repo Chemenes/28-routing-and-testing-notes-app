@@ -1,7 +1,7 @@
 import React from 'react';
-import uuid from 'uuid/v4';
-import ExpenseForm from '../note-create-form/note-create-form';
-import './dashboard.scss';
+import { configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import Dashboard from './dashboard.scss';
 
 configure({ adapter: new Adapter() });
 

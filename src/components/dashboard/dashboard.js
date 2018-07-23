@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid/v4';
-import ExpenseForm from '../note-create-form/note-create-form';
+import NoteCreateForm from '../note-create-form/note-create-form';
 import './dashboard.scss';
 
 export default class Dashboard extends React.Component {

@@ -36,10 +36,10 @@ export default class NoteForm extends React.Component {
           onChange={this.handleChange}
         />
         <input
-          type="number"
-          name="price"
-          placeholder="price"
-          value={this.state.price}
+          type="text"
+          name="description"
+          placeholder="description"
+          value={this.state.description}
           onChange={this.handleChange}
         />
         <button type="submit">Create Note</button>

@@ -13,7 +13,7 @@ em { font-style: italic; }
 strong { font-weight: bold; }
 
 body {
-  background: $color-darkcyan;
+  background: #fff;
   font-size: 16px;
 }
 
@@ -41,7 +41,7 @@ label {
 }
 
 textarea, input {
-  background: $color-white;
+  background: #00ff00;
   border: none;
   padding: 15px;
   border-radius: 3px;
@@ -63,7 +63,7 @@ button {
 }
 
 button,input[type="submit"] {
-  background: $color-lightgrey;
+  background: #551a8b;
   padding: $pad;
   border: none;
   border-radius: 3px;

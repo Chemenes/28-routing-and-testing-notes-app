@@ -8,7 +8,7 @@ export default class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      expenses: [],
+      notes: [],
       error: null,
     };
   }
@@ -28,6 +28,14 @@ export default class Dashboard extends React.Component {
     });
   }
 
+  handleRemoveNote = (noteToRemove) => {
+    this.setState((previousState) => {
+      return {
+        notes: previousState.notes.filter(note => note._id !== noteToRemove._id),
+      };
+    });
+  }
+
  
   handleNotesList = () => {
     return (
@@ -36,7 +44,7 @@ export default class Dashboard extends React.Component {
           this.state.notes.map((note) => {
             return (
               <li key={note._id}>
-                {note.title} : ${expense.price}
+                {note.title} : ${note.price}
               </li>
               
             );
@@ -45,13 +53,12 @@ export default class Dashboard extends React.Component {
       </ul>
     );
   }
-
  
 
   render() {
     return (
       <section className="dashboard">
-        <ExpenseForm handleAddNote={this.handleAddNote} />
+        <NoteCreateForm handleAddNote={this.handleAddNote} />
         {
           this.state.error && <h2 className="error">You must enter a title.</h2>
         }

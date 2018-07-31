@@ -5,12 +5,14 @@
     "plugin:react/recommended"
   ],
   "env": {
-    "browser": true
+    "browser": true,
+    "cypress/globals": true
   },
   "parser": "babel-eslint",
   "plugins": [
     "jest",
-    "react"
+    "react",
+    "cypress"
   ],
   "rules": {
     "arrow-body-style": "off",

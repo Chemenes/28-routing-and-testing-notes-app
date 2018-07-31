@@ -1,6 +1,8 @@
 import React from 'react';
 import uuid from 'uuid/v4';
-import NoteCreateForm from '../note-create-form/note-create-form';
+import NoteForm from '../note-form/note-form';
+import NoteItem from '../note-item/note-item';
+import { renderIf } from '../../lib/utils';
 import './dashboard.scss';
 
 export default class Dashboard extends React.Component {
@@ -8,7 +10,7 @@ export default class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      notes: [],
+      note: [],
       error: null,
     };
   }
@@ -22,7 +24,7 @@ export default class Dashboard extends React.Component {
     note._id = uuid();
     return this.setState((previousState) => {
       return {
-        notes: [...previousState.notes, note],
+        note: [...previousState.note, note], 
         error: null,
       };
     });
@@ -31,39 +33,54 @@ export default class Dashboard extends React.Component {
   handleRemoveNote = (noteToRemove) => {
     this.setState((previousState) => {
       return {
-        notes: previousState.notes.filter(note => note._id !== noteToRemove._id),
+        note: previousState.note.filter(note => note._id !== noteToRemove._id),
       };
     });
   }
 
- 
+  handleUpdateNote = (noteToUpdate) => {
+    return this.setState((previousState) => {
+      return {
+        note: previousState.note.map(note => (note._id === noteToUpdate._id ? noteToUpdate : note)),
+      };
+    });
+  }
+
+  handleTotalPrice = () => {
+    return this.state.note.reduce((sum, note) => {
+      return sum + Number(note.price); 
+    }, 0);
+  }
+
   handleNotesList = () => {
     return (
       <ul>
         {
-          this.state.notes.map((note) => {
+          this.state.note.map((note) => {
             return (
               <li key={note._id}>
-                {note.title} : ${note.price}
+                <NoteItem
+                  note={note}
+                  handleRemoveNote={this.handleRemoveNote}
+                  handleUpdateNote={this.handleUpdateNote}
+                />
               </li>
-              
             );
           })
         }
       </ul>
     );
   }
- 
 
   render() {
     return (
       <section className="dashboard">
-        <NoteCreateForm handleAddNote={this.handleAddNote} />
+        <NoteForm handleComplete={this.handleAddNote} />
         {
-          this.state.error && <h2 className="error">You must enter a title.</h2>
+          renderIf(this.state.error, <h2 className="error">You must enter a title.</h2>)
         }
         {this.handleNotesList()}
-        
+        <p>Your total costs are: ${this.handleTotalPrice()}</p>
       </section>
     );
   }
